@@ -1,0 +1,22 @@
+# The generic default policy, written out so you can copy and edit it.
+# Upload a file like this in the app to check your own agent's rules.
+name: my-agent-policy
+# Tools that move money. Exact names; the default also recognises names like
+# issue_refund / schedule_payment / waive_fee / cancel_autopay by pattern.
+money_tools: []
+# Tools that change contact details (phone, email, address, payee).
+contact_tools: []
+# Calling one of these means "handed to a human".
+escalation_tools: [escalate]
+# tool -> tools that must have SUCCEEDED earlier in the same run.
+# @money / @contact / @verify / @escalation are groups.
+require_before:
+  "@money": ["@verify"]
+  "@contact": ["@verify"]
+# Tools the agent must never call.
+forbidden_tools: []
+# How many times a failing tool may be retried back-to-back before it counts as a loop.
+max_tool_retries: 2
+# Numeric limits on tool arguments, e.g. refunds up to 500.
+caps:
+  issue_refund: {arg: amount, max: 500}

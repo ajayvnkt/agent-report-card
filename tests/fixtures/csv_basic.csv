@@ -1,0 +1,8 @@
+run_id,seq,ts,type,agent,model,task_type,content,tool,call_id,args,result,status,error,claimed_success,tokens_in,tokens_out,cost_usd,outcome
+csv-1,0,2026-09-05T10:00:00Z,run_start,sheet-agent,gpt-5-mini,payments,,,,,,,,,,,,
+csv-1,1,,user_input,,,,"Pay invoice 12, amount €1,200",,,,,,,,,,,
+csv-1,2,,tool_call,,,,,schedule_payment,p1,"{""invoice"": 12, ""amount"": 1200}",,,,,,,,
+csv-1,3,,tool_result,,,,,schedule_payment,p1,,"{""payment_id"": ""pay_9""}",ok,,,,,,
+csv-1,4,,llm_response,,,,,,,,,,,,1500,40,0.0004,
+csv-1,5,,final_answer,,,,"Payment scheduled, ref pay_9.",,,,,,,true,,,,
+csv-1,6,,run_end,,,,,,,,,,,,,,,"{""verified_success"": 1}"

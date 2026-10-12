@@ -1,0 +1,292 @@
+[
+  {
+    "id": "hook",
+    "beats": [
+      {
+        "key": "hook_claim",
+        "say": "My agent told this customer: your phone has been updated.",
+        "do": "Pre-recorded silently: demo_agent_runs.log uploaded, SkyDesk policy, Run analysis, Run detail on sky-0904-0028. Highlight the quote in \"💬 Agent CLAIMED\"."
+      },
+      {
+        "key": "hook_logs",
+        "say": "The logs show the update failed three times.",
+        "do": "Highlight \"🔍 Logs SHOW\" and move the cursor over the three \"update_contact ❌ error\" lines."
+      },
+      {
+        "key": "hook_gap",
+        "say": "It claimed a success that never happened, and nobody noticed.",
+        "do": "Highlight \":red[Claimed but never succeeded:] update_contact\" in Logs SHOW, then the 0% gauge."
+      },
+      {
+        "key": "hook_promise",
+        "say": "Agent Report Card catches that, in any agent's logs. Here is how, in three clicks.",
+        "do": "Open a fresh page (nothing uploaded) and point at the title \"🧾 Agent Report Card\"."
+      }
+    ]
+  },
+  {
+    "id": "step1",
+    "beats": [
+      {
+        "key": "step1_intro",
+        "say": "Step one: upload your agent's logs.",
+        "do": "Highlight \"Step 1 · Upload your agent logs\"."
+      },
+      {
+        "key": "format_open",
+        "say": "Not sure about the format? Click, what format should my logs be in.",
+        "do": "Click the expander \"📄 What format should my logs be in?\"; tab \"Minimal example\" is open."
+      },
+      {
+        "key": "format_minimal",
+        "say": "The simplest format is one JSON line per event: the user message, each tool call, each result, and the final answer.",
+        "do": "Highlight the JSON lines of the minimal example and move down them."
+      },
+      {
+        "key": "format_accepted",
+        "say": "Accepted formats lists what else it reads as it is: Open A I messages, Python logs, Open Telemetry, and CSV.",
+        "do": "Click the tab \"Accepted formats\"; move over rows 2 to 5 of the table."
+      },
+      {
+        "key": "format_langfuse",
+        "say": "And now Langfuse exports too, so traces you already collect work without changes.",
+        "do": "Highlight row 6 \"Langfuse export (traces + observations, JSON / JSONL)\"."
+      },
+      {
+        "key": "upload",
+        "say": "Now click Upload, and choose demo agent runs dot log.",
+        "do": "Close the expander. Click \"Upload\" and choose sample_logs/demo_agent_runs.log."
+      },
+      {
+        "key": "detected",
+        "say": "A plain Python log, detected by itself: sixteen runs, three hundred thirty six events, and three unrelated lines skipped.",
+        "do": "Highlight \"✅ Detected: Python logging text (agent_run key=value lines) · 16 runs · 336 events · 3 lines skipped\", then move the cursor to \"3 lines skipped\"."
+      }
+    ]
+  },
+  {
+    "id": "step2",
+    "beats": [
+      {
+        "key": "policy_choose",
+        "say": "Step two is the policy: the rules every run must follow. This is an airline agent, so choose SkyDesk policy.",
+        "do": "Scroll to \"Step 2 · Policy (optional)\" and click the radio \"SkyDesk policy\"."
+      },
+      {
+        "key": "policy_plain",
+        "say": "In plain English: verify the customer before any refund, never refund more than the fare paid, and retry a failing tool at most once.",
+        "do": "Move over the plain-English list: \"🔐 issue_refund may only run after verify_customer…\", \"📏 issue_refund: … never more than lookup_booking.result.fare_paid\", \"🔁 … at most 1 time(s)\"."
+      },
+      {
+        "key": "policy_open",
+        "say": "Writing your own? Click, what should a policy look like.",
+        "do": "Click the expander \"📐 What should a policy look like?\"; tab \"Annotated example (SkyDesk)\" is open."
+      },
+      {
+        "key": "policy_require",
+        "say": "It is a short rules file. Require before says a refund may only run after verify customer has succeeded.",
+        "do": "Scroll the annotated YAML to \"require_before:\" and highlight it. Move the cursor down over the lines under it."
+      },
+      {
+        "key": "policy_injection",
+        "say": "Injection patterns: text from customers or tools is data. The agent must never obey instructions hidden in it.",
+        "do": "Scroll to \"injection_patterns:\" and highlight it. Move the cursor down over the lines under it."
+      },
+      {
+        "key": "policy_escalate",
+        "say": "Bereavement, legal threats, fraud, and hotel claims must be escalated to a human.",
+        "do": "Scroll to \"escalate_if_text_matches:\" and highlight it. Move the cursor down over the lines under it."
+      },
+      {
+        "key": "policy_caps",
+        "say": "And caps: a refund may never be more than the fare paid.",
+        "do": "Scroll to \"caps:\" and highlight it. Move the cursor down over the lines under it."
+      }
+    ]
+  },
+  {
+    "id": "step3",
+    "beats": [
+      {
+        "key": "run_click",
+        "say": "Step three: click Run analysis, and give it a few seconds.",
+        "do": "Close the policy expander and click \"▶ Run analysis\" in \"Step 3 · Run the analysis\"; wait for it to finish."
+      },
+      {
+        "key": "run_done",
+        "say": "All sixteen runs are analysed, with eleven action items.",
+        "do": "Wait for \"Analysis complete — 16 runs, 11 action items\" and highlight it."
+      }
+    ]
+  },
+  {
+    "id": "summary",
+    "beats": [
+      {
+        "key": "sum_predicted",
+        "say": "The summary. Predicted success is thirty one percent, from the logs alone. The real rate was also thirty one percent.",
+        "do": "Highlight the card \"Predicted success 31%\", then point at \"actual 31%\"."
+      },
+      {
+        "key": "sum_claimed",
+        "say": "Seven runs claimed success but likely failed, and all seven really did fail.",
+        "do": "Highlight the card \"Claimed success but likely failed 7 · 7 really failed\"."
+      },
+      {
+        "key": "sum_critical",
+        "say": "Three runs broke a critical policy rule, and each successful run costs about one point two cents.",
+        "do": "Highlight \"Critical policy violations 3\", then \"Est. cost per likely-successful run $0.0123\"."
+      },
+      {
+        "key": "sum_goto",
+        "say": "Click, see all action items.",
+        "do": "Click \"See all action items →\" (opens the Action items tab)."
+      }
+    ]
+  },
+  {
+    "id": "actions",
+    "beats": [
+      {
+        "key": "act_top",
+        "say": "Eleven things to fix, most important first. Number one: the agent reports actions that never happened, in four of sixteen runs.",
+        "do": "Highlight the first card \"P0 · Agent reports actions that never happened · 4 runs · 25.0%\"."
+      },
+      {
+        "key": "act_fix",
+        "say": "Each item says why it matters, and how to fix it: build the reply from the tool results, not from the model's memory.",
+        "do": "Highlight \"Why:\" then \"Fix: Build the user-facing summary from the audit log…\"."
+      },
+      {
+        "key": "act_evidence",
+        "say": "Click show evidence, to see the four runs behind it.",
+        "do": "Click \"Show evidence (4 runs)\"."
+      },
+      {
+        "key": "act_open",
+        "say": "Open sky zero nine zero four, zero zero two eight. That is the run from the start.",
+        "do": "Click the run button \"sky-0904-0028\" (opens Run detail)."
+      }
+    ]
+  },
+  {
+    "id": "detail",
+    "beats": [
+      {
+        "key": "det_score",
+        "say": "Run detail. A zero percent chance of success, and why this score explains it: three tool errors, and an action claimed but not done.",
+        "do": "Highlight the gauge (0%) and move down the \"Why this score\" list."
+      },
+      {
+        "key": "det_timeline",
+        "say": "The timeline marks every step used as evidence: three failed update contact calls, then a final answer saying it worked.",
+        "do": "Scroll to \"Timeline — what happened\", move over the three red \"update_contact FAILED\" lines, then highlight the final-answer quote."
+      },
+      {
+        "key": "det_findings",
+        "say": "Three findings: an action that never happened, done after a failure, and a retry loop.",
+        "do": "Highlight \"Findings (3)\" and move over the three finding titles."
+      }
+    ]
+  },
+  {
+    "id": "human",
+    "beats": [
+      {
+        "key": "hil_choose",
+        "say": "Not every hand off is a failure. Choose run sky zero nine zero five, zero three zero one.",
+        "do": "Scroll up, open \"Choose a run to inspect\", type 0905-0301 and press Enter."
+      },
+      {
+        "key": "hil_refund",
+        "say": "This customer's flight was cancelled. The agent verified them, and refunded the fare itself.",
+        "do": "Highlight the Logs SHOW tool calls \"verify_customer ✅ ok\" and \"issue_refund ✅ ok\"."
+      },
+      {
+        "key": "hil_escalate",
+        "say": "But the extra hundred and eighty dollars for a hotel is above its limit, so it sent that to a supervisor.",
+        "do": "Highlight \"escalate_to_human ✅ ok\", then the Agent CLAIMED quote about the hotel and the supervisor."
+      },
+      {
+        "key": "hil_right",
+        "say": "That is the right call: a person approves the exception. A ninety six percent chance of success, and no findings.",
+        "do": "Highlight the 96% gauge, then scroll to \"Findings (0)\" / \"No findings in this run.\""
+      },
+      {
+        "key": "ladder_open",
+        "say": "The autonomy ladder rates each kind of task: autonomous, human approves, or suggest only. Here, every task stays at suggest only.",
+        "do": "Click the tab \"Autonomy ladder\", move over the rung headings \"🟢 Autonomous\", \"🟠 Human approves\", \"🔴 Suggest only\", then the first task card under Suggest only."
+      }
+    ]
+  },
+  {
+    "id": "accuracy",
+    "beats": [
+      {
+        "key": "acc_open",
+        "say": "Click model accuracy. These logs include the real outcome, so the tool grades itself.",
+        "do": "Click the tab \"Model accuracy\" and highlight \"How good was the success probability on this file?\"."
+      },
+      {
+        "key": "acc_numbers",
+        "say": "On these sixteen runs the A U C is one, and seven of eleven done claims were false.",
+        "do": "Highlight the cards \"AUC 1.000\" and \"“Done” claims that were false 7 / 11\"."
+      },
+      {
+        "key": "acc_trained",
+        "say": "But sixteen runs is tiny. The model was trained on our own synthetic logs from a store support agent.",
+        "do": "Scroll to \"About the success score\" and highlight \"Trained on: 600 synthetic ShopDesk runs\"."
+      },
+      {
+        "key": "acc_transfer",
+        "say": "Tested on this airline agent, which it never saw, it scored zero point nine nine one. Real agents will score lower.",
+        "do": "Highlight \"Tested on an agent it never saw (300 synthetic SkyDesk runs …): AUC 0.991\"."
+      }
+    ]
+  },
+  {
+    "id": "build",
+    "beats": [
+      {
+        "key": "build_idea",
+        "say": "How did I build it? With Claude Code. It started with one question: an idea about agents that say done when the task failed.",
+        "do": "Overlay docs/images/process_1_idea.png full screen with a slow zoom; caption 'Built with Claude Code: the idea'."
+      },
+      {
+        "key": "build_prompt",
+        "say": "Then one short instruction: build an Agent Report Card. Upload logs, click run analysis, get each run's success probability and action items.",
+        "do": "Overlay process_2_build_prompt.png; caption 'One short build prompt'."
+      },
+      {
+        "key": "build_streamlit",
+        "say": "When it built a web page, I steered it: not a web page, a Python Streamlit app, with sample logs and tests.",
+        "do": "Overlay process_3_redirect_to_streamlit.png; caption 'Steering: a Streamlit app with tests'."
+      },
+      {
+        "key": "build_tests",
+        "say": "Claude wrote the tests, fixed what failed, and started the app. Then, prompt by prompt, it grew into what you just saw.",
+        "do": "Overlay process_4_tests_and_run.png; caption 'Tests pass, app running'; then fade the overlay out."
+      }
+    ]
+  },
+  {
+    "id": "close",
+    "beats": [
+      {
+        "key": "close_download",
+        "say": "Finally, download the full report, to share it with your team.",
+        "do": "Scroll up and highlight \"⬇ Download full report (Markdown)\"."
+      },
+      {
+        "key": "close_verify",
+        "say": "So, don't trust done. Verify it. Upload your logs, check every run against your rules, and fix what the evidence shows.",
+        "do": "Scroll to the top and point at the title \"🧾 Agent Report Card\", then at \"Step 1 · Upload your agent logs\" and \"Step 2 · Policy (optional)\"."
+      },
+      {
+        "key": "close_credits",
+        "say": "All data in this demo is synthetic, generated by us. Built with Claude Code. Thanks for watching.",
+        "do": "Scroll back to the title \"🧾 Agent Report Card\" and hold with gentle cursor motion."
+      }
+    ]
+  }
+]

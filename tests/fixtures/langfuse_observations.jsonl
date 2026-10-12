@@ -1,0 +1,9 @@
+{"id": "lf-it-9", "name": "it-helpdesk", "timestamp": "2026-09-04T08:00:00Z", "input": "Reset my password please", "output": "Done, your password has been reset.", "metadata": {"task_type": "password_reset", "claimed_success": true}, "scores": [{"name": "success", "value": true}], "observations": ["s0", "s1", "s2", "s3", "s4", "s5"]}
+{"id": "s1", "traceId": "lf-it-9", "type": "SPAN", "name": "lookup_user", "startTime": "2026-09-04T08:00:01Z", "endTime": "2026-09-04T08:00:02Z", "input": {"email": "a@example.com"}, "output": {"found": true}, "metadata": {"tool": "lookup_user"}}
+{"id": "s3", "traceId": "lf-it-9", "type": "SPAN", "name": "tool:notify_it", "startTime": "2026-09-04T08:00:05Z", "endTime": "2026-09-04T08:00:35Z", "input": {"ticket": 5}, "level": "WARNING", "statusMessage": "TimeoutError: notify_it did not answer within 30s"}
+{"id": "s2", "traceId": "lf-it-9", "type": "TOOL", "name": "reset_password", "startTime": "2026-09-04T08:00:03Z", "endTime": "2026-09-04T08:00:04Z", "input": "{\"user\": \"a\"}", "output": {"ok": true}}
+{"id": "s0", "traceId": "lf-it-9", "type": "SPAN", "name": "agent-loop", "startTime": "2026-09-04T08:00:00Z", "endTime": "2026-09-04T08:00:40Z"}
+{"id": "s4", "traceId": "lf-it-9", "type": "TOOL", "name": "close_ticket", "startTime": "2026-09-04T08:00:36Z", "input": {"ticket": 5}}
+{"id": "s5", "traceId": "lf-it-9", "type": "EVENT", "name": "error", "startTime": "2026-09-04T08:00:37Z", "level": "ERROR", "statusMessage": "agent crashed: out of retries"}
+{"id": "x1", "traceId": "lf-orphan", "type": "TOOL", "name": "ping", "startTime": "2026-09-04T09:00:00Z", "endTime": "2026-09-04T09:00:01Z", "input": {}, "output": "pong"}
+this line is not json

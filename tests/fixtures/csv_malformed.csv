@@ -1,0 +1,6 @@
+run_id,seq,type,tool,result
+c-2,0,run_start,,
+c-2,1,tool_call,lookup,
+c-2,2,tool_result,lookup,"NotFound: no such id",extra_cell
+c-2,3,banana,,
+,4,final_answer,,

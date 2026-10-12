@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/secrets.toml
+.DS_Store
+video/.venv/
+video/out/
+video/models/
+submission/
+.idea/
+.vscode/
+*.egg-info/
+build/

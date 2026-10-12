@@ -1,0 +1,12 @@
+[server]
+port = 9003
+headless = true
+runOnSave = false
+
+[browser]
+gatherUsageStats = false
+serverPort = 9003
+
+[theme]
+# No "base" set: the app follows the viewer's light/dark preference.
+primaryColor = "#5b8def"

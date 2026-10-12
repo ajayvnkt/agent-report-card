@@ -1,0 +1,75 @@
+[
+ {
+  "id": "lf-oa-3",
+  "name": "travel-agent",
+  "timestamp": "2026-09-05T12:00:00Z",
+  "metadata": {
+   "task_type": "rebooking"
+  },
+  "input": "Move me to the next flight",
+  "observations": [
+   {
+    "id": "g1",
+    "traceId": "lf-oa-3",
+    "type": "GENERATION",
+    "name": "OpenAI-generation",
+    "startTime": "2026-09-05T12:00:01Z",
+    "endTime": "2026-09-05T12:00:02Z",
+    "model": "gpt-5",
+    "output": {
+     "role": "assistant",
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "c1",
+       "type": "function",
+       "function": {
+        "name": "rebook_flight",
+        "arguments": "{\"flight\": \"SD12\"}"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "id": "g2",
+    "traceId": "lf-oa-3",
+    "type": "GENERATION",
+    "name": "OpenAI-generation",
+    "startTime": "2026-09-05T12:00:03Z",
+    "endTime": "2026-09-05T12:00:04Z",
+    "model": "gpt-5",
+    "input": [
+     {
+      "role": "user",
+      "content": "Move me to the next flight"
+     },
+     {
+      "role": "assistant",
+      "content": null,
+      "tool_calls": [
+       {
+        "id": "c1",
+        "type": "function",
+        "function": {
+         "name": "rebook_flight",
+         "arguments": "{\"flight\": \"SD12\"}"
+        }
+       }
+      ]
+     },
+     {
+      "role": "tool",
+      "tool_call_id": "c1",
+      "name": "rebook_flight",
+      "content": "{\"new_flight\": \"SD14\", \"seat\": \"12C\"}"
+     }
+    ],
+    "output": {
+     "role": "assistant",
+     "content": "You are rebooked on SD14, seat 12C."
+    }
+   }
+  ]
+ }
+]

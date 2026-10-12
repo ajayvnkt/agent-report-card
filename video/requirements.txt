@@ -1,0 +1,5 @@
+# Only needed to re-record the narrated demo video (video/make_video_v2.py) and README screenshots.
+playwright>=1.50
+imageio-ffmpeg>=0.5
+kokoro-onnx>=0.4
+soundfile>=0.12

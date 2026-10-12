@@ -1,0 +1,6 @@
+[
+  {"run_id": "j-1", "seq": 1, "type": "tool_call", "tool": "search", "args": {"q": "status"}},
+  {"run_id": "j-1", "seq": 0, "type": "run_start", "agent": "search-agent"},
+  {"run_id": "j-1", "seq": 2, "type": "tool_result", "tool": "search", "result": "Timeout: upstream took > 30s"},
+  {"run_id": "j-1", "seq": 3, "type": "final_answer", "content": "I was unable to finish the search."},
+]

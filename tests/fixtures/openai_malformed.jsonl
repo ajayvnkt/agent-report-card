@@ -1,0 +1,4 @@
+{"run_id":"bad-1","messages":[{"role":"user","content":"hi"},{"role":"assistant","content":null,"tool_calls":[{"id":"k1","type":"function","function":{"name":"lookup","arguments":"{not json"}}]},{"role":"tool","tool_call_id":"k1","content":"ok"},{"role":"assistant","content":"All set."}]}
+<<< truncated garbage line >>>
+
+{"run_id":"bad-2","messages":[{"role":"user","content":"x"},{"role":"assistant","content":null,"tool_calls":[{"id":"k2","type":"function","function":{"name":"lookup","arguments":"{}"}}]}]},

@@ -1,0 +1,399 @@
+{
+ "protocol": "Train the bundled success model on our own synthetic data and test it on an agent it never saw.\n\n    .venv/bin/python scripts/train_success_model.py            # train, evaluate, save\n    .venv/bin/python scripts/train_success_model.py --no-save  # only print the numbers\n\nProtocol (fixed before any SkyDesk number was looked at):\n  * TRAIN + SELECT : 600 synthetic ShopDesk runs (online-store support agent, two versions),\n                     build/samples/training/shopdesk_train_arl.jsonl, analysed with\n                     sample_logs/shopdesk_policy.yaml. Order-grouped 5-fold CV (every contact about\n                     one order stays in one fold). The feature set and L2 strength are chosen from the\n                     pre-listed candidates by ShopDesk CV AUC (ties -> lower Brier). SkyDesk plays no\n                     part in fitting or selection.\n  * TEST (once)    : 300 synthetic SkyDesk runs (airline agent: different domain, tools, policy, task\n                     mix and models), build/samples/skydesk_arl.jsonl with sample_logs/skydesk_policy.yaml.\n                     Reported for skydesk-v1, skydesk-v2 and all 300, for the chosen model only.\nThe fallback heuristic is scored on exactly the same runs.\nEvery fit uses sign constraints (model.EXPECTED_SIGNS: failure signals may only LOWER the chance of\nsuccess), so the per-run explanations never read backwards.\nBoth data sets are generated on the fly (deterministic, scripts/generate_sample_logs.py) into the\ngit-ignored build/samples/ when they are missing.",
+ "train": {
+  "file": "build/samples/training/shopdesk_train_arl.jsonl",
+  "n": 600,
+  "n_groups": 275,
+  "base_rate": 0.5433,
+  "per_agent": {
+   "shopdesk-v1": {
+    "n": 300,
+    "success_rate": 0.47
+   },
+   "shopdesk-v2": {
+    "n": 300,
+    "success_rate": 0.6167
+   }
+  }
+ },
+ "candidates": {
+  "full/l2=0.3": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9855,
+    "auc_uncalibrated": 0.9855,
+    "brier": 0.0182,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.98,
+    "confusion": {
+     "tp": 326,
+     "tn": 262,
+     "fp": 12,
+     "fn": 0
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "n_refused",
+    "fail_rate",
+    "n_retries"
+   ]
+  },
+  "full/l2=1": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9818,
+    "auc_uncalibrated": 0.9818,
+    "brier": 0.0196,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.98,
+    "confusion": {
+     "tp": 326,
+     "tn": 262,
+     "fp": 12,
+     "fn": 0
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "n_refused",
+    "fail_rate",
+    "n_retries"
+   ]
+  },
+  "full/l2=3": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9787,
+    "auc_uncalibrated": 0.9787,
+    "brier": 0.0217,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.98,
+    "confusion": {
+     "tp": 326,
+     "tn": 262,
+     "fp": 12,
+     "fn": 0
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "n_refused",
+    "fail_rate",
+    "n_retries"
+   ]
+  },
+  "full/l2=10": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9745,
+    "auc_uncalibrated": 0.9745,
+    "brier": 0.0274,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.98,
+    "confusion": {
+     "tp": 326,
+     "tn": 262,
+     "fp": 12,
+     "fn": 0
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "n_refused",
+    "fail_rate",
+    "n_retries"
+   ]
+  },
+  "full/l2=30": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9716,
+    "auc_uncalibrated": 0.9716,
+    "brier": 0.0406,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.955,
+    "confusion": {
+     "tp": 325,
+     "tn": 248,
+     "fp": 26,
+     "fn": 1
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "n_refused",
+    "n_retries"
+   ]
+  },
+  "generic/l2=0.3": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9813,
+    "auc_uncalibrated": 0.9813,
+    "brier": 0.0198,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.98,
+    "confusion": {
+     "tp": 326,
+     "tn": 262,
+     "fp": 12,
+     "fn": 0
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "fail_rate",
+    "n_medium"
+   ]
+  },
+  "generic/l2=1": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9809,
+    "auc_uncalibrated": 0.9809,
+    "brier": 0.0204,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.98,
+    "confusion": {
+     "tp": 326,
+     "tn": 262,
+     "fp": 12,
+     "fn": 0
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "fail_rate",
+    "n_retries"
+   ]
+  },
+  "generic/l2=3": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.979,
+    "auc_uncalibrated": 0.979,
+    "brier": 0.022,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.98,
+    "confusion": {
+     "tp": 326,
+     "tn": 262,
+     "fp": 12,
+     "fn": 0
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "fail_rate",
+    "n_retries"
+   ]
+  },
+  "generic/l2=10": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9792,
+    "auc_uncalibrated": 0.9792,
+    "brier": 0.0282,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.9783,
+    "confusion": {
+     "tp": 325,
+     "tn": 262,
+     "fp": 12,
+     "fn": 1
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "fail_rate",
+    "n_retries"
+   ]
+  },
+  "generic/l2=30": {
+   "shopdesk_cv": {
+    "n": 600,
+    "base_rate": 0.5433,
+    "auc": 0.9758,
+    "auc_uncalibrated": 0.9758,
+    "brier": 0.0409,
+    "brier_baseline": 0.2481,
+    "accuracy_at_0_5": 0.955,
+    "confusion": {
+     "tp": 325,
+     "tn": 248,
+     "fp": 26,
+     "fn": 1
+    },
+    "mean_predicted": 0.5433
+   },
+   "dropped_by_sign": [
+    "fail_rate",
+    "n_retries"
+   ]
+  }
+ },
+ "heuristic_shopdesk": {
+  "n": 600,
+  "base_rate": 0.5433,
+  "auc": 0.9305,
+  "brier": 0.1305,
+  "brier_baseline": 0.2481,
+  "accuracy_at_0_5": 0.8633,
+  "confusion": {
+   "tp": 326,
+   "tn": 192,
+   "fp": 82,
+   "fn": 0
+  },
+  "mean_predicted": 0.6315
+ },
+ "chosen": "full/l2=0.3",
+ "skydesk_test": {
+  "model": {
+   "skydesk_all": {
+    "n": 300,
+    "base_rate": 0.5633,
+    "auc": 0.9913,
+    "brier": 0.0079,
+    "brier_baseline": 0.246,
+    "accuracy_at_0_5": 0.9933,
+    "confusion": {
+     "tp": 169,
+     "tn": 129,
+     "fp": 2,
+     "fn": 0
+    },
+    "mean_predicted": 0.5563
+   },
+   "skydesk_v1": {
+    "n": 150,
+    "base_rate": 0.4733,
+    "auc": 0.9873,
+    "brier": 0.0086,
+    "brier_baseline": 0.2493,
+    "accuracy_at_0_5": 0.9933,
+    "confusion": {
+     "tp": 71,
+     "tn": 78,
+     "fp": 1,
+     "fn": 0
+    },
+    "mean_predicted": 0.4634
+   },
+   "skydesk_v2": {
+    "n": 150,
+    "base_rate": 0.6533,
+    "auc": 0.9976,
+    "brier": 0.0072,
+    "brier_baseline": 0.2265,
+    "accuracy_at_0_5": 0.9933,
+    "confusion": {
+     "tp": 98,
+     "tn": 51,
+     "fp": 1,
+     "fn": 0
+    },
+    "mean_predicted": 0.6493
+   }
+  },
+  "heuristic": {
+   "skydesk_all": {
+    "n": 300,
+    "base_rate": 0.5633,
+    "auc": 0.9675,
+    "brier": 0.1035,
+    "brier_baseline": 0.246,
+    "accuracy_at_0_5": 0.9167,
+    "confusion": {
+     "tp": 169,
+     "tn": 106,
+     "fp": 25,
+     "fn": 0
+    },
+    "mean_predicted": 0.6343
+   },
+   "skydesk_v1": {
+    "n": 150,
+    "base_rate": 0.4733,
+    "auc": 0.9848,
+    "brier": 0.1043,
+    "brier_baseline": 0.2493,
+    "accuracy_at_0_5": 0.9333,
+    "confusion": {
+     "tp": 71,
+     "tn": 69,
+     "fp": 10,
+     "fn": 0
+    },
+    "mean_predicted": 0.5767
+   },
+   "skydesk_v2": {
+    "n": 150,
+    "base_rate": 0.6533,
+    "auc": 0.9419,
+    "brier": 0.1027,
+    "brier_baseline": 0.2265,
+    "accuracy_at_0_5": 0.9,
+    "confusion": {
+     "tp": 98,
+     "tn": 37,
+     "fp": 15,
+     "fn": 0
+    },
+    "mean_predicted": 0.6919
+   }
+  },
+  "calibration_bins_all": [
+   {
+    "bin": "0%-20%",
+    "lo": 0.0,
+    "hi": 0.2,
+    "n": 128,
+    "mean_predicted": 0.0021224652749826612,
+    "actual_rate": 0.0
+   },
+   {
+    "bin": "20%-40%",
+    "lo": 0.2,
+    "hi": 0.4,
+    "n": 1,
+    "mean_predicted": 0.30939345028775245,
+    "actual_rate": 0.0
+   },
+   {
+    "bin": "40%-60%",
+    "lo": 0.4,
+    "hi": 0.6,
+    "n": 0,
+    "mean_predicted": null,
+    "actual_rate": null
+   },
+   {
+    "bin": "60%-80%",
+    "lo": 0.6,
+    "hi": 0.8,
+    "n": 4,
+    "mean_predicted": 0.7710743030272891,
+    "actual_rate": 1.0
+   },
+   {
+    "bin": "80%-100%",
+    "lo": 0.8,
+    "hi": 1.0,
+    "n": 167,
+    "mean_predicted": 0.9774795632999467,
+    "actual_rate": 0.9880239520958084
+   }
+  ]
+ }
+}

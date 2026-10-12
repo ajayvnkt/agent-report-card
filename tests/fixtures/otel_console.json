@@ -1,0 +1,18 @@
+{
+    "name": "invoke_agent helper",
+    "context": {"trace_id": "0xabc", "span_id": "0x01", "trace_state": "[]"},
+    "parent_id": null,
+    "start_time": "2026-09-04T00:00:00.000000Z",
+    "end_time": "2026-09-04T00:00:02.000000Z",
+    "status": {"status_code": "UNSET"},
+    "attributes": {"gen_ai.agent.name": "helper", "arc.final_answer": "Here is the weather: sunny."}
+}
+{
+    "name": "execute_tool get_weather",
+    "context": {"trace_id": "0xabc", "span_id": "0x02", "trace_state": "[]"},
+    "parent_id": "0x01",
+    "start_time": "2026-09-04T00:00:00.500000Z",
+    "end_time": "2026-09-04T00:00:01.000000Z",
+    "status": {"status_code": "OK"},
+    "attributes": {"gen_ai.tool.name": "get_weather", "gen_ai.tool.call.arguments": "{\"city\": \"Oslo\"}", "gen_ai.tool.call.result": "{\"sky\": \"sunny\"}"}
+}

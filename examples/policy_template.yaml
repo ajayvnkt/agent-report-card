@@ -1,0 +1,5 @@
+name: my-support-agent
+money_tools: [issue_refund]
+require_before: {issue_refund: [verify_customer]}
+forbidden_tools: [delete_account]
+caps: {issue_refund: {arg: amount, max: 500}}
